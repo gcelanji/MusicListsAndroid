@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,7 +47,7 @@ class FragmentRock : Fragment() {
 
     private fun getData() {
         DataService.initRetrofit().fetchData(
-            "rock",
+            "pop",
             "music",
             "song",
             50
@@ -57,7 +58,7 @@ class FragmentRock : Fragment() {
                     response: Response<NetworkResponse>
                 ) {
                     if(response.isSuccessful){
-                        
+                        Toast.makeText(requireContext(), "Found ${response.body()?.resultCount}", Toast.LENGTH_SHORT).show()
                         Log.d(TAG, "onResponse: ${response.body()}")
                         updateAdapter(response.body())
                     }
@@ -79,9 +80,9 @@ class FragmentRock : Fragment() {
         Log.d(TAG, "updateAdapter: ${body?.resultCount}")
         body?.let {
             Log.d(TAG, "updateAdapterBody: In here")
-            val testTrack = TrackItem("ERT", "ERT","SGSGD",1.2F,"ASF")
-            val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
-            adapter = DataAdapter(testList)
+            //val testTrack = TrackItem("ERT", "ERT","SGSGD",1.2F,"ASF")
+            //val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
+            adapter = DataAdapter(it.results)
             songsResponse.adapter = adapter
         } ?: showError()
     }
