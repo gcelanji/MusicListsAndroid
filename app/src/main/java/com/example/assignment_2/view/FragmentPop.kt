@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val TAG = "FragmentRock"
+private const val TAG = "FragmentPop"
 
 class FragmentPop : Fragment() {
     private lateinit var songsResponse: RecyclerView
@@ -47,7 +47,7 @@ class FragmentPop : Fragment() {
 
     private fun getData() {
         DataService.initRetrofit().fetchData(
-            "classic",
+            "pop",
             "music",
             "song",
             50

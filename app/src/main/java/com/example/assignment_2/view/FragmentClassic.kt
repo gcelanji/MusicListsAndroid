@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignment_2.R
@@ -18,9 +17,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val TAG = "FragmentRock"
+private const val TAG = "FragmentClassic"
 
-class FragmentRock : Fragment() {
+class FragmentClassic : Fragment() {
     private lateinit var songsResponse: RecyclerView
     private lateinit var adapter: DataAdapter
 
@@ -48,7 +47,7 @@ class FragmentRock : Fragment() {
 
     private fun getData() {
         DataService.initRetrofit().fetchData(
-            "rock",
+            "classic",
             "music",
             "song",
             50
@@ -59,6 +58,7 @@ class FragmentRock : Fragment() {
                     response: Response<NetworkResponse>
                 ) {
                     if(response.isSuccessful){
+
                         Log.d(TAG, "onResponse: ${response.body()}")
                         updateAdapter(response.body())
                     }
@@ -84,7 +84,7 @@ class FragmentRock : Fragment() {
             //val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
             adapter = DataAdapter(it.results)
             songsResponse.adapter = adapter
-            //Toast.makeText(requireContext(), "Found ${response.body()?.resultCount} Results.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Found ${body?.resultCount} Results.", Toast.LENGTH_SHORT).show()
         } ?: showError()
     }
 
