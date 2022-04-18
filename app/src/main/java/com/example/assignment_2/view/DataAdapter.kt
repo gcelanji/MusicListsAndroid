@@ -20,7 +20,7 @@ class DataAdapter (private val dataSet : List<TrackItem>) : RecyclerView.Adapter
         private val price : TextView = view.findViewById(R.id.tv_price)
 
         fun onBind(dataItem : TrackItem){
-            Picasso.get().load(dataItem.image).into(this.image)
+            Picasso.get().load(dataItem.artworkUrl100).into(this.image)
             collectionName.text = dataItem.collectionName
             artistName.text = dataItem.artistName
             price.text = dataItem.trackPrice.toString()

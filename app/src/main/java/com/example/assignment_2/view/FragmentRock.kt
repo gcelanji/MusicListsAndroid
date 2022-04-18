@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignment_2.R
@@ -42,7 +43,7 @@ class FragmentRock : Fragment() {
 
     private fun initViews(view : View) {
         songsResponse = view.findViewById(R.id.rock_list)
-        songsResponse.layoutManager = LinearLayoutManager(context)
+        songsResponse.layoutManager = GridLayoutManager(context, 3)
     }
 
     private fun getData() {
@@ -58,7 +59,7 @@ class FragmentRock : Fragment() {
                     response: Response<NetworkResponse>
                 ) {
                     if(response.isSuccessful){
-                        Toast.makeText(requireContext(), "Found ${response.body()?.resultCount}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Found ${response.body()?.resultCount} Results.", Toast.LENGTH_SHORT).show()
                         Log.d(TAG, "onResponse: ${response.body()}")
                         updateAdapter(response.body())
                     }

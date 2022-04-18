@@ -12,7 +12,7 @@ data class NetworkResponse(
 data class TrackItem(
     val artistName : String,
     val collectionName : String,
-    val image : String,
+    val artworkUrl100 : String,
     val trackPrice : Float,
-    val previewSong : String
+    val previewUrl : String
 )
