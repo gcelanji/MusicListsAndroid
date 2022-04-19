@@ -38,6 +38,7 @@ class DataAdapter (private val dataSet : List<TrackItem>) : RecyclerView.Adapter
         )
     }
 
+
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
        return holder.onBind(dataSet[position])
     }

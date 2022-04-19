@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.assignment_2.R
 import com.example.assignment_2.model.NetworkResponse
-import com.example.assignment_2.model.TrackItem
 import com.example.assignment_2.model.remote.DataService
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,6 +21,7 @@ private const val TAG = "FragmentRock"
 class FragmentRock : Fragment() {
     private lateinit var songsResponse: RecyclerView
     private lateinit var adapter: DataAdapter
+    private lateinit var swipeToRefresh : SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +30,7 @@ class FragmentRock : Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(
-            R.layout.fragment_rock,
+            R.layout.fragment_layout,
             container,
             false
         )
@@ -40,10 +39,18 @@ class FragmentRock : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        swipeToRefresh.setOnRefreshListener {
+            getData()
+            swipeToRefresh.isRefreshing = false
+        }
+    }
 
     private fun initViews(view : View) {
         songsResponse = view.findViewById(R.id.rock_list)
         songsResponse.layoutManager = LinearLayoutManager(context)
+        swipeToRefresh = view.findViewById(R.id.swipeRefreshLayout)
     }
 
     private fun getData() {

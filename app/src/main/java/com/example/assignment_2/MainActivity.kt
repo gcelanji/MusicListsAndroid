@@ -1,6 +1,7 @@
 package com.example.assignment_2
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment_2.view.FragmentClassic
@@ -12,7 +13,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var classicBtn: ImageView
     private lateinit var popBtn: ImageView
 
-    //private val borderColor : View = findViewById(R.id.border_item_layout)
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -45,6 +48,8 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, FragmentPop())
                 .commit()
         }
+
+
 
 
     }
