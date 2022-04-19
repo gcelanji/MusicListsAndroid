@@ -11,7 +11,7 @@ import com.example.assignment_2.R
 import com.example.assignment_2.model.TrackItem
 import com.squareup.picasso.Picasso
 
-class DataAdapter (private val dataSet : List<TrackItem>) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
+class DataAdapter (private val dataSet : List<TrackItem>, private val playSound : (TrackItem) -> Unit) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
 
     class DataViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         private val image : ImageView = view.findViewById(R.id.track_image)
@@ -19,11 +19,13 @@ class DataAdapter (private val dataSet : List<TrackItem>) : RecyclerView.Adapter
         private val artistName : TextView = view.findViewById(R.id.tv_artist)
         private val price : TextView = view.findViewById(R.id.tv_price)
 
-        fun onBind(dataItem : TrackItem){
+        fun onBind(dataItem : TrackItem, playSound : (TrackItem) -> Unit){
             Picasso.get().load(dataItem.artworkUrl100).into(this.image)
             collectionName.text = dataItem.collectionName
             artistName.text = dataItem.artistName
             price.text = dataItem.trackPrice.toString()
+
+            view.setOnClickListener {    playSound(dataItem)   }
         }
     }
 
@@ -40,7 +42,8 @@ class DataAdapter (private val dataSet : List<TrackItem>) : RecyclerView.Adapter
 
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-       return holder.onBind(dataSet[position])
+       return holder.onBind(dataSet[position], playSound)
+
     }
 
     override fun getItemCount(): Int {
