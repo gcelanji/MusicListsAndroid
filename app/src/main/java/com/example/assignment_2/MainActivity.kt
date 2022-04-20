@@ -12,9 +12,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var classicBtn: ImageView
     private lateinit var popBtn: ImageView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,21 +23,18 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         rockBtn.setOnClickListener {
-            //borderColor.background = ContextCompat.getDrawable(this, R.drawable.border_rock)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, FragmentRock())
                 .commit()
         }
 
         classicBtn.setOnClickListener {
-            //borderColor.background = ContextCompat.getDrawable(this, R.drawable.border_pop)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, FragmentClassic())
                 .commit()
         }
 
         popBtn.setOnClickListener {
-            //borderColor.background = ContextCompat.getDrawable(this, R.drawable.border_pop)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, FragmentPop())
                 .commit()
@@ -53,6 +48,5 @@ class MainActivity : AppCompatActivity() {
         classicBtn = findViewById(R.id.classic_icon)
         popBtn = findViewById(R.id.pop_icon)
     }
-
 
 }
