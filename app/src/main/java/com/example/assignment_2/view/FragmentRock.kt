@@ -1,5 +1,6 @@
 package com.example.assignment_2.view
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -110,12 +111,13 @@ class FragmentRock : Fragment() {
     }
 
     private fun playContentUri(audioUrl: String) {
-        val url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        Log.d(TAG, "playContentUri: $audioUrl")
-        val uri: Uri = Uri.parse(audioUrl)
-        mediaPlayer = MediaPlayer.create(requireContext(), uri)
-        mediaPlayer.start()
-
+        Log.d(TAG, "playContentUri: Checkpoint")
+        val a: Uri = Uri.parse(audioUrl)
+        val viewMediaIntent = Intent()
+        viewMediaIntent.action = Intent.ACTION_VIEW
+        viewMediaIntent.setDataAndType(a, "audio/*")
+        viewMediaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(viewMediaIntent)
     }
 
     private fun showToast(items: Int) {

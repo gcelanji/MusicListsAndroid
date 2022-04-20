@@ -1,7 +1,9 @@
 package com.example.assignment_2.view
 
+import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -111,17 +113,13 @@ class FragmentPop : Fragment() {
     }
 
     private fun playContentUri(audioUrl: String) {
-        val mediaPlayer = MediaPlayer().apply {
-            setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .build()
-            )
-            setDataSource(audioUrl)
-            prepare() // might take long! (for buffering, etc)
-            start()
-        }
+        Log.d(TAG, "playContentUri: Checkpoint")
+        val a: Uri = Uri.parse(audioUrl)
+        val viewMediaIntent = Intent()
+        viewMediaIntent.action = Intent.ACTION_VIEW
+        viewMediaIntent.setDataAndType(a, "audio/*")
+        viewMediaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(viewMediaIntent)
     }
 
 

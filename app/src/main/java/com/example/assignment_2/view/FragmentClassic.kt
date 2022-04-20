@@ -1,6 +1,7 @@
 package com.example.assignment_2.view
 
-import android.media.MediaPlayer
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -103,15 +104,17 @@ class FragmentClassic : Fragment() {
     }
 
     private fun playSound(item: TrackItem) {
-        //var mediaPlayer = MediaPlayer.create(activity, R.raw.sound)
-        //mediaPlayer.start()
         playContentUri(item.previewUrl)
     }
 
     private fun playContentUri(audioUrl: String) {
         Log.d(TAG, "playContentUri: Checkpoint")
-        val mPlayer2: MediaPlayer = MediaPlayer.create(activity, R.raw.sound)
-        mPlayer2.start()
+        val a: Uri = Uri.parse(audioUrl)
+        val viewMediaIntent = Intent()
+        viewMediaIntent.action = Intent.ACTION_VIEW
+        viewMediaIntent.setDataAndType(a, "audio/*")
+        viewMediaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(viewMediaIntent)
     }
 
     private fun showToast(items: Int) {
