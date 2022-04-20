@@ -1,6 +1,5 @@
 package com.example.assignment_2.view
 
-import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
@@ -20,13 +19,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 private const val TAG = "FragmentClassic"
 
 class FragmentClassic : Fragment() {
     private lateinit var songsResponse: RecyclerView
     private lateinit var adapter: DataAdapter
-    private lateinit var swipeToRefresh : SwipeRefreshLayout
-    private val className : String = "FragmentClassic"
+    private lateinit var swipeToRefresh: SwipeRefreshLayout
+    private val className: String = "FragmentClassic"
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +54,7 @@ class FragmentClassic : Fragment() {
         }
     }
 
-    private fun initViews(view : View) {
+    private fun initViews(view: View) {
         songsResponse = view.findViewById(R.id.rock_list)
         songsResponse.layoutManager = LinearLayoutManager(context)
         swipeToRefresh = view.findViewById(R.id.swipeRefreshLayout)
@@ -71,12 +72,11 @@ class FragmentClassic : Fragment() {
                     call: Call<NetworkResponse>,
                     response: Response<NetworkResponse>
                 ) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
 
                         Log.d(TAG, "onResponse: ${response.body()}")
                         updateAdapter(response.body())
-                    }
-                    else{
+                    } else {
                         showError()
                     }
                 }
@@ -84,17 +84,15 @@ class FragmentClassic : Fragment() {
                 override fun onFailure(call: Call<NetworkResponse>, t: Throwable) {
 
                 }
-
-
             }
         )
     }
 
-    private fun updateAdapter(body : NetworkResponse?) {
+    private fun updateAdapter(body: NetworkResponse?) {
         Log.d(TAG, "updateAdapter: ${body?.resultCount}")
         body?.let {
             Log.d(TAG, "updateAdapterBody: In here")
-            adapter = DataAdapter(it.results, className = className){item -> playSound(item)}
+            adapter = DataAdapter(it.results, className = className) { item -> playSound(item) }
             songsResponse.adapter = adapter
             showToast(adapter.itemCount)
         } ?: showError()
@@ -104,27 +102,21 @@ class FragmentClassic : Fragment() {
         Log.d(TAG, "showError: Error fetching the data")
     }
 
-    private fun playSound(item : TrackItem){
+    private fun playSound(item: TrackItem) {
+        //var mediaPlayer = MediaPlayer.create(activity, R.raw.sound)
+        //mediaPlayer.start()
         playContentUri(item.previewUrl)
     }
 
     private fun playContentUri(audioUrl: String) {
-        val mediaPlayer = MediaPlayer().apply {
-            setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .build()
-            )
-            setDataSource(audioUrl)
-            prepare() // might take long! (for buffering, etc)
-            start()
-        }
+        Log.d(TAG, "playContentUri: Checkpoint")
+        val mPlayer2: MediaPlayer = MediaPlayer.create(activity, R.raw.sound)
+        mPlayer2.start()
     }
 
-    private fun showToast(items : Int){
+    private fun showToast(items: Int) {
         // triggers an java.lang.NullPointerException when switching to landscape mode
-        Toast.makeText(context, "Found $items Results.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity?.applicationContext, "Found $items Results.", Toast.LENGTH_SHORT).show()
     }
 
 

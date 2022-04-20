@@ -11,41 +11,41 @@
         android:id="@+id/rock_icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_baseline_home_24"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@id/classic_icon"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_home_24" />
 
     <ImageView
         android:id="@+id/classic_icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_baseline_view_quilt_24"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"/>
+        app:srcCompat="@drawable/ic_baseline_view_quilt_24" />
 
     <ImageView
         android:id="@+id/pop_icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@id/classic_icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_notifications_24"
-        android:layout_marginTop="8dp"/>
+        app:srcCompat="@drawable/ic_baseline_notifications_24" />
 
     <TextView
         android:id="@+id/rock_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/rock"
         android:gravity="center"
+        android:text="@string/rock"
         android:textSize="11sp"
-        app:layout_constraintTop_toBottomOf ="@id/rock_icon"
-        app:layout_constraintStart_toStartOf="@id/rock_icon" />
+        app:layout_constraintStart_toStartOf="@id/rock_icon"
+        app:layout_constraintTop_toBottomOf="@id/rock_icon" />
 
     <TextView
         android:id="@+id/classic_text"
@@ -54,8 +54,8 @@
         android:gravity="center"
         android:text="@string/classic"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/classic_icon" />
 
     <TextView
@@ -75,8 +75,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/classic_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/classic_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

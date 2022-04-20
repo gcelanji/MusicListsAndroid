@@ -25,9 +25,9 @@ private const val TAG = "FragmentRock"
 class FragmentRock : Fragment() {
     private lateinit var songsResponse: RecyclerView
     private lateinit var adapter: DataAdapter
-    private lateinit var swipeToRefresh : SwipeRefreshLayout
-    private lateinit var mediaPlayer : MediaPlayer
-    private val className : String = "FragmentRock"
+    private lateinit var swipeToRefresh: SwipeRefreshLayout
+    private lateinit var mediaPlayer: MediaPlayer
+    private val className: String = "FragmentRock"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +53,7 @@ class FragmentRock : Fragment() {
         }
     }
 
-    private fun initViews(view : View) {
+    private fun initViews(view: View) {
         songsResponse = view.findViewById(R.id.rock_list)
         songsResponse.layoutManager = LinearLayoutManager(context)
         swipeToRefresh = view.findViewById(R.id.swipeRefreshLayout)
@@ -71,11 +71,10 @@ class FragmentRock : Fragment() {
                     call: Call<NetworkResponse>,
                     response: Response<NetworkResponse>
                 ) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
                         Log.d(TAG, "onResponse: ${response.body()}")
                         updateAdapter(response.body())
-                    }
-                    else{
+                    } else {
                         showError()
                     }
                 }
@@ -89,13 +88,13 @@ class FragmentRock : Fragment() {
         )
     }
 
-    private fun updateAdapter(body : NetworkResponse?) {
+    private fun updateAdapter(body: NetworkResponse?) {
         Log.d(TAG, "updateAdapter: ${body?.resultCount}")
         body?.let {
             Log.d(TAG, "updateAdapterBody: In here")
             //val testTrack = TrackItem("ERT", "ERT","SGSGD",1.2F,"ASF")
             //val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
-            adapter = DataAdapter(it.results, className = className){ item -> playSound(item)}
+            adapter = DataAdapter(it.results, className = className) { item -> playSound(item) }
             songsResponse.adapter = adapter
             showToast(adapter.itemCount)
         } ?: showError()
@@ -106,20 +105,20 @@ class FragmentRock : Fragment() {
     }
 
 
-    private fun playSound(item : TrackItem){
+    private fun playSound(item: TrackItem) {
         playContentUri(item.previewUrl)
     }
 
     private fun playContentUri(audioUrl: String) {
-        val url  = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        val url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
         Log.d(TAG, "playContentUri: $audioUrl")
-        val uri : Uri = Uri.parse(audioUrl)
+        val uri: Uri = Uri.parse(audioUrl)
         mediaPlayer = MediaPlayer.create(requireContext(), uri)
         mediaPlayer.start()
 
     }
 
-    private fun showToast(items : Int){
+    private fun showToast(items: Int) {
         // triggers an java.lang.NullPointerException when switching to landscape mode
         Toast.makeText(context, "Found $items Results.", Toast.LENGTH_SHORT).show()
     }

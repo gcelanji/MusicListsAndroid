@@ -13,24 +13,24 @@ import com.squareup.picasso.Picasso
 
 class DataAdapter(
     private val dataSet: List<TrackItem>,
-    private val className : String,
+    private val className: String,
     private val playSound: (TrackItem) -> Unit
 ) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
 
 
-    class DataViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
-        private val image : ImageView = view.findViewById(R.id.track_image)
-        private val  collectionName : TextView = view.findViewById(R.id.tv_collection)
-        private val artistName : TextView = view.findViewById(R.id.tv_artist)
-        private val price : TextView = view.findViewById(R.id.tv_price)
+    class DataViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        private val image: ImageView = view.findViewById(R.id.track_image)
+        private val collectionName: TextView = view.findViewById(R.id.tv_collection)
+        private val artistName: TextView = view.findViewById(R.id.tv_artist)
+        private val price: TextView = view.findViewById(R.id.tv_price)
 
-        fun onBind(dataItem : TrackItem, playSound : (TrackItem) -> Unit){
+        fun onBind(dataItem: TrackItem, playSound: (TrackItem) -> Unit) {
             Picasso.get().load(dataItem.artworkUrl100).into(this.image)
             collectionName.text = dataItem.collectionName
             artistName.text = dataItem.artistName
             price.text = dataItem.trackPrice.toString()
 
-            view.setOnClickListener {    playSound(dataItem)   }
+            view.setOnClickListener { playSound(dataItem) }
         }
     }
 
@@ -47,7 +47,7 @@ class DataAdapter(
 
     override fun onViewAttachedToWindow(holder: DataViewHolder) {
         super.onViewAttachedToWindow(holder)
-        when(className){
+        when (className) {
             "FragmentRock" -> holder.itemView.setBackgroundResource(R.drawable.border_rock)
             "FragmentClassic" -> holder.itemView.setBackgroundResource(R.drawable.border_classic)
             "FragmentPop" -> holder.itemView.setBackgroundResource(R.drawable.border_pop)
@@ -56,7 +56,7 @@ class DataAdapter(
 
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-       return holder.onBind(dataSet[position], playSound)
+        return holder.onBind(dataSet[position], playSound)
 
     }
 
