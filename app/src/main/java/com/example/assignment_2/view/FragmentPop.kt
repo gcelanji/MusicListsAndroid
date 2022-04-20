@@ -26,6 +26,7 @@ class FragmentPop : Fragment() {
     private lateinit var songsResponse: RecyclerView
     private lateinit var adapter: DataAdapter
     private lateinit var swipeToRefresh: SwipeRefreshLayout
+    private val className : String = "FragmentPop"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,7 +96,7 @@ class FragmentPop : Fragment() {
             Log.d(TAG, "updateAdapterBody: In here")
             //val testTrack = TrackItem("ERT", "ERT","SGSGD",1.2F,"ASF")
             //val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
-            adapter = DataAdapter(it.results) { item -> playSound(item) }
+            adapter = DataAdapter(it.results, className = className) { item -> playSound(item) }
             songsResponse.adapter = adapter
             showToast(adapter.itemCount)
         } ?: showError()

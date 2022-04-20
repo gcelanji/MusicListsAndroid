@@ -1,7 +1,5 @@
 package com.example.assignment_2.view
 
-import android.media.AudioAttributes
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -29,6 +27,7 @@ class FragmentRock : Fragment() {
     private lateinit var adapter: DataAdapter
     private lateinit var swipeToRefresh : SwipeRefreshLayout
     private lateinit var mediaPlayer : MediaPlayer
+    private val className : String = "FragmentRock"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,7 +95,7 @@ class FragmentRock : Fragment() {
             Log.d(TAG, "updateAdapterBody: In here")
             //val testTrack = TrackItem("ERT", "ERT","SGSGD",1.2F,"ASF")
             //val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
-            adapter = DataAdapter(it.results){item -> playSound(item)}
+            adapter = DataAdapter(it.results, className = className){ item -> playSound(item)}
             songsResponse.adapter = adapter
             showToast(adapter.itemCount)
         } ?: showError()

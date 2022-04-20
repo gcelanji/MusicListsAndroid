@@ -26,6 +26,7 @@ class FragmentClassic : Fragment() {
     private lateinit var songsResponse: RecyclerView
     private lateinit var adapter: DataAdapter
     private lateinit var swipeToRefresh : SwipeRefreshLayout
+    private val className : String = "FragmentClassic"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,7 +94,7 @@ class FragmentClassic : Fragment() {
         Log.d(TAG, "updateAdapter: ${body?.resultCount}")
         body?.let {
             Log.d(TAG, "updateAdapterBody: In here")
-            adapter = DataAdapter(it.results){item -> playSound(item)}
+            adapter = DataAdapter(it.results, className = className){item -> playSound(item)}
             songsResponse.adapter = adapter
             showToast(adapter.itemCount)
         } ?: showError()

@@ -11,7 +11,12 @@ import com.example.assignment_2.R
 import com.example.assignment_2.model.TrackItem
 import com.squareup.picasso.Picasso
 
-class DataAdapter (private val dataSet : List<TrackItem>, private val playSound : (TrackItem) -> Unit) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
+class DataAdapter(
+    private val dataSet: List<TrackItem>,
+    private val className : String,
+    private val playSound: (TrackItem) -> Unit
+) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
+
 
     class DataViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         private val image : ImageView = view.findViewById(R.id.track_image)
@@ -38,6 +43,15 @@ class DataAdapter (private val dataSet : List<TrackItem>, private val playSound 
                 false
             )
         )
+    }
+
+    override fun onViewAttachedToWindow(holder: DataViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        when(className){
+            "FragmentRock" -> holder.itemView.setBackgroundResource(R.drawable.border_rock)
+            "FragmentClassic" -> holder.itemView.setBackgroundResource(R.drawable.border_classic)
+            "FragmentPop" -> holder.itemView.setBackgroundResource(R.drawable.border_pop)
+        }
     }
 
 
