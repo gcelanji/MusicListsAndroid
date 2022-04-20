@@ -119,7 +119,8 @@ class FragmentClassic : Fragment() {
 
     private fun showToast(items: Int) {
         // triggers an java.lang.NullPointerException when switching to landscape mode
-        Toast.makeText(activity?.applicationContext, "Found $items Results.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity?.applicationContext, "Found $items Results.", Toast.LENGTH_SHORT)
+            .show()
     }
 
 

@@ -1,8 +1,6 @@
 package com.example.assignment_2.view
 
 import android.content.Intent
-import android.media.AudioAttributes
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -96,8 +94,6 @@ class FragmentPop : Fragment() {
         Log.d(TAG, "updateAdapter: ${body?.resultCount}")
         body?.let {
             Log.d(TAG, "updateAdapterBody: In here")
-            //val testTrack = TrackItem("ERT", "ERT","SGSGD",1.2F,"ASF")
-            //val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
             adapter = DataAdapter(it.results, className = className) { item -> playSound(item) }
             songsResponse.adapter = adapter
             showToast(adapter.itemCount)

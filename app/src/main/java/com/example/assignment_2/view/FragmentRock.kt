@@ -93,8 +93,6 @@ class FragmentRock : Fragment() {
         Log.d(TAG, "updateAdapter: ${body?.resultCount}")
         body?.let {
             Log.d(TAG, "updateAdapterBody: In here")
-            //val testTrack = TrackItem("ERT", "ERT","SGSGD",1.2F,"ASF")
-            //val testList = arrayListOf<TrackItem>(testTrack, testTrack, testTrack)
             adapter = DataAdapter(it.results, className = className) { item -> playSound(item) }
             songsResponse.adapter = adapter
             showToast(adapter.itemCount)
