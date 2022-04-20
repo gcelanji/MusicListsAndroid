@@ -119,8 +119,12 @@ class FragmentClassic : Fragment() {
 
     private fun showToast(items: Int) {
         // triggers an java.lang.NullPointerException when switching to landscape mode
-        if (context == null) return
-        Toast.makeText(context, "Found $items Results.", Toast.LENGTH_SHORT).show()
+        // fixed that by adding in the Android Manifest file: android:configChanges="orientation|screenSize|keyboardHidden"
+        if (context != null && isAdded) Toast.makeText(
+            context,
+            "Found $items Results.",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 
