@@ -1,5 +1,6 @@
 package com.example.assignment_2.view
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -41,7 +42,6 @@ class FragmentPop : Fragment() {
         )
         initViews(view)
         getData()
-
         return view
     }
 
@@ -51,8 +51,8 @@ class FragmentPop : Fragment() {
             getData()
             swipeToRefresh.isRefreshing = false
         }
-    }
 
+    }
 
     private fun initViews(view: View) {
         songsResponse = view.findViewById(R.id.rock_list)
@@ -76,15 +76,15 @@ class FragmentPop : Fragment() {
 
                         Log.d(TAG, "onResponse: ${response.body()}")
                         updateAdapter(response.body())
+                        showToast(adapter.itemCount)
                     } else {
                         showError()
                     }
                 }
 
                 override fun onFailure(call: Call<NetworkResponse>, t: Throwable) {
-
+                    Log.d(TAG, "onFailure: ${t.message}")
                 }
-
 
             }
         )
@@ -96,7 +96,7 @@ class FragmentPop : Fragment() {
             Log.d(TAG, "updateAdapterBody: In here")
             adapter = DataAdapter(it.results, className = className) { item -> playSound(item) }
             songsResponse.adapter = adapter
-            showToast(adapter.itemCount)
+
         } ?: showError()
     }
 
@@ -121,7 +121,9 @@ class FragmentPop : Fragment() {
 
     private fun showToast(items: Int) {
         // triggers an java.lang.NullPointerException when switching to landscape mode
+        if (context == null) return
         Toast.makeText(context, "Found $items Results.", Toast.LENGTH_SHORT).show()
+
     }
 
 }

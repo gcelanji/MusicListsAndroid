@@ -83,7 +83,7 @@ class FragmentClassic : Fragment() {
                 }
 
                 override fun onFailure(call: Call<NetworkResponse>, t: Throwable) {
-
+                    Log.d(TAG, "onFailure: ${t.message}")
                 }
             }
         )
@@ -119,8 +119,8 @@ class FragmentClassic : Fragment() {
 
     private fun showToast(items: Int) {
         // triggers an java.lang.NullPointerException when switching to landscape mode
-        Toast.makeText(activity?.applicationContext, "Found $items Results.", Toast.LENGTH_SHORT)
-            .show()
+        if (context == null) return
+        Toast.makeText(context, "Found $items Results.", Toast.LENGTH_SHORT).show()
     }
 
 

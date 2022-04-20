@@ -27,7 +27,6 @@ class FragmentRock : Fragment() {
     private lateinit var songsResponse: RecyclerView
     private lateinit var adapter: DataAdapter
     private lateinit var swipeToRefresh: SwipeRefreshLayout
-    private lateinit var mediaPlayer: MediaPlayer
     private val className: String = "FragmentRock"
 
     override fun onCreateView(
@@ -81,7 +80,7 @@ class FragmentRock : Fragment() {
                 }
 
                 override fun onFailure(call: Call<NetworkResponse>, t: Throwable) {
-
+                    Log.d(TAG, "onFailure: ${t.message}")
                 }
 
 
@@ -120,7 +119,9 @@ class FragmentRock : Fragment() {
 
     private fun showToast(items: Int) {
         // triggers an java.lang.NullPointerException when switching to landscape mode
+        if (context == null) return
         Toast.makeText(context, "Found $items Results.", Toast.LENGTH_SHORT).show()
+
     }
 
 }
